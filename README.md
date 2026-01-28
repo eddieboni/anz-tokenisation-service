@@ -123,10 +123,10 @@ curl -X POST http://localhost:3000/detokenise \
 To make this production ready, the following enhancements would be needed:
 
 ### Security
-- **Authentication & Authorisation**: Implement OAuth2 or JWT-based authentication.
+- **Authentication & Authorisation**: Implement OAuth2 or JWT based authentication.
 - **TLS/HTTPS**: Enforce encrypted connections.
 - **Rate Limiting**: Prevent abuse and DDoS attacks.
-- **Input Validation**: Validate account number formats (e.g., Luhn algorithm for card numbers).
+- **Input Validation**: Validate account number formats (e.g. Luhn algorithm for card numbers).
 - **Audit Logging**: Track who tokenised/detokenised what and when.
 
 ### Data Management
@@ -195,7 +195,7 @@ The H2 console is enabled for debugging purposes:
 - URL: `http://localhost:3000/h2-console`
 - JDBC URL: `jdbc:h2:mem:tokendb`
 - Username: `sa`
-- Password: (leave empty)
+- Password: (leave empty).
 
 ## License
 
