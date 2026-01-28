@@ -16,6 +16,7 @@ import java.util.Optional;
 public class TokenisationService {
 
     private static final int TOKEN_LENGTH = 32;
+    private static final int BYTE_ARRAY_SIZE = (TOKEN_LENGTH * 3) / 4; // Base64 Math.
     private final TokenRepository tokenRepository;
     private final SecureRandom secureRandom;
 
@@ -87,7 +88,7 @@ public class TokenisationService {
     private String generateUniqueToken() {
         String token;
         do {
-            byte[] randomBytes = new byte[24]; // 24 bytes = 32 chars in Base64.
+            byte[] randomBytes = new byte[BYTE_ARRAY_SIZE]; // 24 bytes = 32 chars in Base64.
             secureRandom.nextBytes(randomBytes);
             token = Base64.getUrlEncoder()
                     .withoutPadding()

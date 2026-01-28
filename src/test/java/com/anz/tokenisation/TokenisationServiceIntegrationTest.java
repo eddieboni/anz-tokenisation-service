@@ -1,5 +1,6 @@
 package com.anz.tokenisation;
 
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,7 +45,10 @@ class TokenisationServiceIntegrationTest {
                 .andReturn();
 
         String tokeniseResponse = tokeniseResult.getResponse().getContentAsString();
-        List<String> tokens = objectMapper.readValue(tokeniseResponse, List.class);
+        List<String> tokens = objectMapper.readValue(
+                tokeniseResponse, 
+                new TypeReference<List<String>>() {}
+        );
 
         // Verify tokens created.
         assertNotNull(tokens);
@@ -63,7 +67,10 @@ class TokenisationServiceIntegrationTest {
                 .andReturn();
 
         String detokeniseResponse = detokeniseResult.getResponse().getContentAsString();
-        List<String> retrievedAccountNumbers = objectMapper.readValue(detokeniseResponse, List.class);
+        List<String> retrievedAccountNumbers = objectMapper.readValue(
+                detokeniseResponse, 
+                new TypeReference<List<String>>() {}
+        );
 
         // Verify received original account numbers.
         assertNotNull(retrievedAccountNumbers);
@@ -84,7 +91,9 @@ class TokenisationServiceIntegrationTest {
                 .andReturn();
 
         List<String> tokens1 = objectMapper.readValue(
-                result1.getResponse().getContentAsString(), List.class);
+                result1.getResponse().getContentAsString(),
+                new TypeReference<List<String>>() {}
+        );
 
         // Second tokenisation (same account).
         MvcResult result2 = mockMvc.perform(post("/tokenise")
@@ -94,7 +103,9 @@ class TokenisationServiceIntegrationTest {
                 .andReturn();
 
         List<String> tokens2 = objectMapper.readValue(
-                result2.getResponse().getContentAsString(), List.class);
+                result2.getResponse().getContentAsString(),
+                new TypeReference<List<String>>() {}
+        );
 
         // Verify same token is returned.
         assertEquals(tokens1.get(0), tokens2.get(0));
@@ -112,7 +123,9 @@ class TokenisationServiceIntegrationTest {
                 .andReturn();
 
         List<String> accountNumbers = objectMapper.readValue(
-                result.getResponse().getContentAsString(), List.class);
+                result.getResponse().getContentAsString(),
+                new TypeReference<List<String>>() {}
+        );
 
         // Return null for invalid token.
         assertEquals(1, accountNumbers.size());
